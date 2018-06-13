@@ -1,5 +1,5 @@
 /**
-Roshan's Pong Game
+Roshan's Breakout Game
 Version 1.0
 Last edited on: June 12, 2018
 ------------------------------*/

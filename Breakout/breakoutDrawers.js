@@ -1,3 +1,9 @@
+/**
+Roshan's Breakout Game
+Version 1.0
+Last edited on: June 12, 2018
+------------------------------*/
+
 // Draw the ball to play game with
 function drawBall() {
   context.beginPath();
