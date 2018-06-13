@@ -1,3 +1,9 @@
+/**
+Roshan's Pong Game
+Version 1.0
+Last edited on: June 12, 2018
+------------------------------*/
+
 // Detect collision of the player's ball with the bricks
 function collisionDetection() {
   for(var col = 0; col < brickColumnCount; col++) {

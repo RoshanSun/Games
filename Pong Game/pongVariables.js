@@ -1,3 +1,9 @@
+/**
+Roshan's Pong Game
+Version 1.0
+Last edited on: June 12, 2018
+------------------------------*/
+
 // Developing the 2d canvas
 var canvas = document.getElementById("myCanvas");
 var context = canvas.getContext("2d");
