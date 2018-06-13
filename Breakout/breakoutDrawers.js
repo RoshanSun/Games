@@ -22,9 +22,10 @@ function drawPaddle() {
 }
 // Draw the bricks for the game
 function drawBricks() {
+  // var currColour = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
   for(var col = 0; col < brickColumnCount; col++) {
     for(var row = 0; row < brickRowCount; row++) {
-      if(bricks[col][row].status == 1) {
+        if(bricks[col][row].status == 1) {
         var brickX = (col * (brickWidth + brickPadding)) + brickOffsetLeft;
         var brickY = (row * (brickHeight + brickPadding)) + brickOffsetTop;
         bricks[col][row].xCoord = brickX;

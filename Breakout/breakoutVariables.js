@@ -26,13 +26,13 @@ var paddleX = (canvas.width - paddleWidth) / 2;
 var rightPressed = false;
 var leftPressed = false;
 // Set dimensions, variables, # of bricks and all offsets from borders
-var brickRowCount = 3;
-var brickColumnCount = 5;
+var brickRowCount = 5;
+var brickColumnCount = 10;
 var brickWidth = 75;
 var brickHeight = 20;
-var brickPadding = 10;
+var brickPadding = 1;
 var brickOffsetTop = 30;
-var brickOffsetLeft = 30;
+var brickOffsetLeft = 23;
 var bricks = [];
 // initialize the bricks
 for(var col = 0; col < brickColumnCount; col++) {
