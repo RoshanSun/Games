@@ -21,6 +21,7 @@ var ballRadius = 10;
 // Set all dimensions & variables of the paddle to play game with
 var paddleHeight = 10;
 var paddleWidth = 75;
+var paddleOffset = 10;
 var paddleX = (canvas.width - paddleWidth) / 2;
 var rightPressed = false;
 var leftPressed = false;

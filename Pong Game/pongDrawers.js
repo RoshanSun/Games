@@ -1,22 +1,16 @@
-/**
-Roshan's Pong Game
-Version 1.0
-Last edited on: June 12, 2018
-------------------------------*/
-
 // Draw the ball to play game with
 function drawBall() {
   context.beginPath();
   context.arc(x, y, ballRadius, 0, Math.PI*2);
-  context.fillStyle = "#0095DD";
+  context.fillStyle = "#FFF";
   context.fill();
   context.closePath();
 }
 // Draw the paddle to hit ball with
 function drawPaddle() {
   context.beginPath();
-  context.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
-  context.fillStyle = "#0095DD";
+  context.rect(paddleX, canvas.height - paddleHeight - paddleOffset, paddleWidth, paddleHeight);
+  context.fillStyle = "#FFF";
   context.fill();
   context.closePath();
 }
@@ -32,7 +26,7 @@ function drawBricks() {
         // draw the bricks
         context.beginPath();
         context.rect(brickX, brickY, brickWidth, brickHeight);
-        context.fillStyle = "#0095DD";
+        context.fillStyle = "#FFF";
         context.fill();
         context.closePath();
       }
@@ -42,13 +36,13 @@ function drawBricks() {
 // Keep track of player's score
 function drawScore() {
   context.font = "16px Arial";
-  context.fillStyle = "#0095DD";
+  context.fillStyle = "#FFF";
   context.fillText("Score: " + score, 8, 20);
 }
 // Keep track of player's lives
 function drawLives() {
   context.font = "16px Arial";
-  context.fillStyle = "#0095DD";
+  context.fillStyle = "#FFF";
   context.fillText("Lives: " + lives, canvas.width-65, 20);
 }
 // Draw the game board and contain logic to keep game playing
@@ -67,7 +61,7 @@ function draw() {
   // ball movement and wall bouncing
   if(y + dy < ballRadius) {
     dy = -dy;
-  } else if(y + dy > canvas.height - ballRadius) {
+  } else if(y + dy > canvas.height - ballRadius - paddleOffset) {
     // check if it hit paddle - bounce back up
     if(x > paddleX && x < paddleX + paddleWidth) {
       dy = -dy;
