@@ -1,7 +1,7 @@
 /**
 Roshan's Breakout Game
-Version 1.0
-Last edited on: June 12, 2018
+Version 1.1
+Last edited on: June 14, 2018
 ------------------------------*/
 
 // Detect collision of the player's ball with the bricks
@@ -27,6 +27,7 @@ function collisionDetection() {
     }
   }
 }
+
 // Detect when left/right keys being pushed
 function keyDownHandler(e) {
   if(e.keyCode == 39) {
@@ -35,6 +36,7 @@ function keyDownHandler(e) {
     leftPressed = true;
   }
 }
+
 // Detect when left/right keys are released
 function keyUpHandler(e) {
   if(e.keyCode == 39) {
@@ -43,6 +45,7 @@ function keyUpHandler(e) {
     leftPressed = false;
   }
 }
+
 // Detect mouse movement so paddle goes with it
 function mouseMoveHandler(e) {
   var relativeX = e.clientX - canvas.offsetLeft;
@@ -50,6 +53,7 @@ function mouseMoveHandler(e) {
     paddleX = relativeX - paddleWidth/2;
   }
 }
+
 // Track keyboard and mouse movement
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);

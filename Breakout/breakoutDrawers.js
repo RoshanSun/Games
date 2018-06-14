@@ -1,57 +1,9 @@
 /**
 Roshan's Breakout Game
-Version 1.0
-Last edited on: June 12, 2018
+Version 1.1
+Last edited on: June 14, 2018
 ------------------------------*/
 
-// Draw the ball to play game with
-function drawBall() {
-  context.beginPath();
-  context.arc(x, y, ballRadius, 0, Math.PI*2);
-  context.fillStyle = "#FFF";
-  context.fill();
-  context.closePath();
-}
-// Draw the paddle to hit ball with
-function drawPaddle() {
-  context.beginPath();
-  context.rect(paddleX, canvas.height - paddleHeight - paddleOffset, paddleWidth, paddleHeight);
-  context.fillStyle = "#FFF";
-  context.fill();
-  context.closePath();
-}
-// Draw the bricks for the game
-function drawBricks() {
-  // var currColour = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
-  for(var col = 0; col < brickColumnCount; col++) {
-    for(var row = 0; row < brickRowCount; row++) {
-        if(bricks[col][row].status == 1) {
-        var brickX = (col * (brickWidth + brickPadding)) + brickOffsetLeft;
-        var brickY = (row * (brickHeight + brickPadding)) + brickOffsetTop;
-        bricks[col][row].xCoord = brickX;
-        bricks[col][row].yCoord = brickY;
-        // draw the bricks
-        context.beginPath();
-        context.rect(brickX, brickY, brickWidth, brickHeight);
-        context.fillStyle = "#FFF";
-        context.fill();
-        context.closePath();
-      }
-    }
-  }
-}
-// Keep track of player's score
-function drawScore() {
-  context.font = "16px Arial";
-  context.fillStyle = "#FFF";
-  context.fillText("Score: " + score, 8, 20);
-}
-// Keep track of player's lives
-function drawLives() {
-  context.font = "16px Arial";
-  context.fillStyle = "#FFF";
-  context.fillText("Lives: " + lives, canvas.width-65, 20);
-}
 // Draw the game board and contain logic to keep game playing
 function draw() {
   context.clearRect(0, 0, canvas.width, canvas.height);
@@ -96,4 +48,57 @@ function draw() {
   y += dy;
   // Re-occuring call of draw function using browser
   requestAnimationFrame(draw);
+}
+
+// Draw the ball to play game with
+function drawBall() {
+  context.beginPath();
+  context.arc(x, y, ballRadius, 0, Math.PI*2);
+  context.fillStyle = "#FFF";
+  context.fill();
+  context.closePath();
+}
+
+// Draw the paddle to hit ball with
+function drawPaddle() {
+  context.beginPath();
+  context.rect(paddleX, canvas.height - paddleHeight - paddleOffset, paddleWidth, paddleHeight);
+  context.fillStyle = "#FFF";
+  context.fill();
+  context.closePath();
+}
+
+// Draw the bricks for the game
+function drawBricks() {
+  // var currColour = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+  for(var col = 0; col < brickColumnCount; col++) {
+    for(var row = 0; row < brickRowCount; row++) {
+        if(bricks[col][row].status == 1) {
+        var brickX = (col * (brickWidth + brickPadding)) + brickOffsetLeft;
+        var brickY = (row * (brickHeight + brickPadding)) + brickOffsetTop;
+        bricks[col][row].xCoord = brickX;
+        bricks[col][row].yCoord = brickY;
+        // draw the bricks
+        context.beginPath();
+        context.rect(brickX, brickY, brickWidth, brickHeight);
+        context.fillStyle = "#FFF";
+        context.fill();
+        context.closePath();
+      }
+    }
+  }
+}
+
+// Keep track of player's score
+function drawScore() {
+  context.font = "16px Arial";
+  context.fillStyle = "#FFF";
+  context.fillText("Score: " + score, 8, 20);
+}
+
+// Keep track of player's lives
+function drawLives() {
+  context.font = "16px Arial";
+  context.fillStyle = "#FFF";
+  context.fillText("Lives: " + lives, canvas.width-65, 20);
 }
