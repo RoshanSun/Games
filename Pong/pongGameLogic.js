@@ -14,12 +14,22 @@ function borderControl() {
 
 // Keep track of the player points
 function pointsControl() {
+  // Update points & reset board
   if(x + dx < radius) {
     scoreTwo++;
     resetBoard();
   } else if(x + dx > canvas.width - radius) {
     scoreOne++;
     resetBoard();
+  }
+
+  // Determine if a player has won
+  if(scoreOne == 5) {
+    alert("Player 1 has won the game!");
+    document.location.reload();
+  } else if(scoreTwo == 5) {
+    alert("Player 2 has won the game!");
+    document.location.reload();
   }
 }
 
@@ -59,8 +69,8 @@ function paddleCollision() {
 function resetBoard() {
   x = canvas.width / 2;
   y = canvas.height / 2;
-  dx = Math.floor(Math.random() * 10 - 5);
-  dy = Math.floor(Math.random() * 10 - 5);
+  dx = 3;
+  dy = 3;
 }
 
 // Detect when players are pressing arrow keys/W, S keys
