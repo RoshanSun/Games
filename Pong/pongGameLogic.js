@@ -53,24 +53,55 @@ function paddleSpeedControl() {
 // Detect if the ball is colliding with either paddle
 function paddleCollision() {
   // Left paddle check
-  if(x + dx < radius + paddleOffset) {
+  if(x + dx < radius + paddleOffset + paddleWidth) {
     if(y > paddleYOne && y < paddleYOne + paddleHeight) {
       dx = -dx;
+      dy = paddleReturnSpeed(y, paddleYOne);
     }
   // Right paddle check
-  } else if(x + dx > canvas.width - radius - paddleOffset) {
+  } else if(x + dx > canvas.width - radius - paddleOffset - paddleWidth) {
     if(y > paddleYTwo && y < paddleYTwo + paddleHeight) {
       dx = -dx;
+      dy = paddleReturnSpeed(y, paddleYTwo);
     }
   }
 }
+
+// Pick a new vertical return speed based on where it hits the paddle
+function paddleReturnSpeed(ballY, paddleY) {
+  // Ball hits 1st partition
+  if(ballY >= paddleY &&
+     ballY <= paddleY + paddleSeparator) {
+    return -3 * fixedYSpeed;
+  // Ball hits 2nd partition
+  } else if(ballY >= paddleY + paddleSeparator &&
+            ballY <= paddleY + paddleSeparator * 2) {
+    return -2 * fixedYSpeed;
+  // Ball hits 3rd partition
+  } else if(ballY >= paddleY + paddleSeparator * 2 &&
+            ballY <= paddleY + paddleSeparator * 3) {
+    return -fixedYSpeed;
+  // Ball hits 4th partition
+  } else if(ballY >= paddleY + paddleSeparator * 3 &&
+            ballY <= paddleY + paddleSeparator * 4) {
+    return fixedYSpeed;
+  // Ball hits 5th partition
+  } else if(ballY >= paddleY + paddleSeparator * 4 &&
+            ballY <= paddleY + paddleSeparator * 5) {
+    return 2 * fixedYSpeed;
+  // Ball hits 6th partition
+  } else if(ballY >= paddleY + paddleHeight - paddleSeparator &&
+            ballY <= paddleY + paddleHeight) {
+    return 3 * fixedYSpeed;
+  }
+ }
 
 // Reset ball's position and speeds
 function resetBoard() {
   x = canvas.width / 2;
   y = canvas.height / 2;
-  dx = 3;
-  dy = 3;
+  dx = startXSpeed;
+  dy = startYSpeed;
 }
 
 // Detect when players are pressing arrow keys/W, S keys
