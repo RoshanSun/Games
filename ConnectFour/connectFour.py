@@ -26,6 +26,39 @@ def getNextOpenSlot(board, choice):
 def printBoard(board):
   print(np.flip(board, 0))
 
+# basic win checking: TODO - MAKE IT MORE EFFICIENT
+def winningMove(board, piece):
+  # Check horizontal locations
+  for c in range (COLUMNS - 3):
+    for r in range(ROWS):
+      if board[r][c] == piece and board[r][c+1] == piece and board[r][c+2] == piece and board[r][c+3] == piece:
+        return True
+  
+  # Check vertical locations
+  for c in range (ROWS):
+    for r in range(COLUMNS - 3):
+      if board[r][c] == piece and board[r+1][c] == piece and board[r+2][c] == piece and board[r+3][c] == piece:
+        return True
+  
+  # Check positive slope diagonals
+  for c in range (COLUMNS - 3):
+    for r in range (ROWS - 3):
+      if board[r][c] == piece and board[r+1][c+1] == piece and board[r+2][c+2] == piece and board[r+3][c+3] == piece:
+        return True
+
+  # Check negative slope diagonals
+  for c in range (COLUMNS - 3):
+    for r in range (3, ROWS):
+      if board[r][c] == piece and board[r-1][c+1] == piece and board[r-2][c+2] == piece and board[r-3][c+3] == piece:
+        return True
+
+# def isWinningMove(board, piece):
+#   pass
+
+#   # Check horizontal locations
+#   for col in range(COLUMNS):
+
+
 board = createBoard()
 gameOver = False
 turn = 0
@@ -39,6 +72,10 @@ while not gameOver:
       row = getNextOpenSlot(board, choice)
       dropPiece(board, row, choice, P1)
 
+    if winningMove(board, P1):
+      print("Player 1 Wins! Congratulations!")
+      gameOver = True
+
 
   # Player 2 Input
   else:
@@ -48,5 +85,9 @@ while not gameOver:
       row = getNextOpenSlot(board, choice)
       dropPiece(board, row, choice, P2)
 
+    if winningMove(board, P2):
+      print("Player 2 Wins! Congratulations!")
+      gameOver = True
+  
   printBoard(board)
   turn = (turn + 1) % 2
