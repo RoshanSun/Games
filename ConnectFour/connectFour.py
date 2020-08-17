@@ -1,4 +1,10 @@
 import numpy as np
+import pygame as pg
+import sys
+
+BLUE = (0, 0, 255)
+RED = (255, 0, 0)
+BLACK = (0, 0, 0)
 
 ROWS = 6
 COLUMNS = 7
@@ -58,36 +64,59 @@ def winningMove(board, piece):
 #   # Check horizontal locations
 #   for col in range(COLUMNS):
 
+def drawBoard(board):
+  for col in range(COLUMNS):
+    for row in range(ROWS):
+      pg.draw.rect(screen, BLUE, (col*SQUARE_SIZE, row*SQUARE_SIZE+SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
+      pg.draw.circle(screen, BLACK, (int(col*SQUARE_SIZE+SQUARE_SIZE/2), int(row*SQUARE_SIZE+SQUARE_SIZE+SQUARE_SIZE/2)), RADIUS)
 
 board = createBoard()
 gameOver = False
 turn = 0
 
+pg.init()
+SQUARE_SIZE = 100
+WIDTH = COLUMNS * SQUARE_SIZE
+HEIGHT = (ROWS+1) * SQUARE_SIZE
+SCREEN_SIZE = (WIDTH, HEIGHT)
+
+RADIUS = int(SQUARE_SIZE/2 - 5)
+
+screen = pg.display.set_mode(SCREEN_SIZE)
+drawBoard(board)
+pg.display.update()
+
 while not gameOver:
-  # Player 1 Input
-  if turn == P1 - 1:
-    choice = int(input("P1, make your choice (0-6): "))
+  for event in pg.event.get():
+    if event.type == pg.QUIT:
+      sys.exit()
 
-    if isValidPick(board, choice):
-      row = getNextOpenSlot(board, choice)
-      dropPiece(board, row, choice, P1)
+    if event.type == pg.MOUSEBUTTONDOWN:
+      pass
+      # # Player 1 Input
+      # if turn == P1 - 1:
+      #   choice = int(input("P1, make your choice (0-6): "))
 
-    if winningMove(board, P1):
-      print("Player 1 Wins! Congratulations!")
-      gameOver = True
+      #   if isValidPick(board, choice):
+      #     row = getNextOpenSlot(board, choice)
+      #     dropPiece(board, row, choice, P1)
+
+      #   if winningMove(board, P1):
+      #     print("Player 1 Wins! Congratulations!")
+      #     gameOver = True
 
 
-  # Player 2 Input
-  else:
-    choice = int(input("P2, make your choice (0-6): "))
+      # # Player 2 Input
+      # else:
+      #   choice = int(input("P2, make your choice (0-6): "))
 
-    if isValidPick(board, choice):
-      row = getNextOpenSlot(board, choice)
-      dropPiece(board, row, choice, P2)
+      #   if isValidPick(board, choice):
+      #     row = getNextOpenSlot(board, choice)
+      #     dropPiece(board, row, choice, P2)
 
-    if winningMove(board, P2):
-      print("Player 2 Wins! Congratulations!")
-      gameOver = True
+      #   if winningMove(board, P2):
+      #     print("Player 2 Wins! Congratulations!")
+      #     gameOver = True
   
-  printBoard(board)
-  turn = (turn + 1) % 2
+      #   printBoard(board)
+      #   turn = (turn + 1) % 2
