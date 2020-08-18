@@ -1,9 +1,11 @@
 import numpy as np
 import pygame as pg
 import sys
+import math
 
 BLUE = (0, 0, 255)
 RED = (255, 0, 0)
+GREEN = (0, 255, 0)
 BLACK = (0, 0, 0)
 
 ROWS = 6
@@ -70,6 +72,14 @@ def drawBoard(board):
       pg.draw.rect(screen, BLUE, (col*SQUARE_SIZE, row*SQUARE_SIZE+SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
       pg.draw.circle(screen, BLACK, (int(col*SQUARE_SIZE+SQUARE_SIZE/2), int(row*SQUARE_SIZE+SQUARE_SIZE+SQUARE_SIZE/2)), RADIUS)
 
+  for col in range(COLUMNS):
+    for row in range(ROWS):
+      if board[row][col] == 1:
+        pg.draw.circle(screen, RED, (int(col*SQUARE_SIZE+SQUARE_SIZE/2), HEIGHT - int(row*SQUARE_SIZE+SQUARE_SIZE/2)), RADIUS)
+      elif board[row][col] == 2:
+        pg.draw.circle(screen, GREEN, (int(col*SQUARE_SIZE+SQUARE_SIZE/2), HEIGHT - int(row*SQUARE_SIZE+SQUARE_SIZE/2)), RADIUS)
+  pg.display.update()
+
 board = createBoard()
 gameOver = False
 turn = 0
@@ -86,37 +96,57 @@ screen = pg.display.set_mode(SCREEN_SIZE)
 drawBoard(board)
 pg.display.update()
 
+myFont = pg.font.SysFont("monospace", 75)
+
 while not gameOver:
   for event in pg.event.get():
     if event.type == pg.QUIT:
       sys.exit()
 
+    if event.type == pg.MOUSEMOTION:
+      pg.draw.rect(screen, BLACK, (0, 0, WIDTH, SQUARE_SIZE))
+      xPos = event.pos[0]
+      if turn == P1 - 1:
+        pg.draw.circle(screen, RED, (xPos, int(SQUARE_SIZE/2)), RADIUS)
+      else:
+        pg.draw.circle(screen, GREEN, (xPos, int(SQUARE_SIZE/2)), RADIUS)
+    pg.display.update()
+
     if event.type == pg.MOUSEBUTTONDOWN:
-      pass
-      # # Player 1 Input
-      # if turn == P1 - 1:
-      #   choice = int(input("P1, make your choice (0-6): "))
+      pg.draw.rect(screen, BLACK, (0, 0, WIDTH, SQUARE_SIZE))
+      #print(event.pos)
+      # Player 1 Input
+      if turn == P1 - 1:
+        xPos = event.pos[0]
+        choice = math.floor(xPos / SQUARE_SIZE)
 
-      #   if isValidPick(board, choice):
-      #     row = getNextOpenSlot(board, choice)
-      #     dropPiece(board, row, choice, P1)
+        if isValidPick(board, choice):
+          row = getNextOpenSlot(board, choice)
+          dropPiece(board, row, choice, P1)
 
-      #   if winningMove(board, P1):
-      #     print("Player 1 Wins! Congratulations!")
-      #     gameOver = True
+        if winningMove(board, P1):
+          label = myFont.render("Player 1 Wins!", 1, RED)
+          screen.blit(label, (40,10))
+          gameOver = True
 
 
       # # Player 2 Input
-      # else:
-      #   choice = int(input("P2, make your choice (0-6): "))
+      else:
+        xPos = event.pos[0]
+        choice = math.floor(xPos / SQUARE_SIZE)
 
-      #   if isValidPick(board, choice):
-      #     row = getNextOpenSlot(board, choice)
-      #     dropPiece(board, row, choice, P2)
+        if isValidPick(board, choice):
+          row = getNextOpenSlot(board, choice)
+          dropPiece(board, row, choice, P2)
 
-      #   if winningMove(board, P2):
-      #     print("Player 2 Wins! Congratulations!")
-      #     gameOver = True
+        if winningMove(board, P2):
+          label = myFont.render("Player 2 Wins!", 1, GREEN)
+          screen.blit(label, (40,10))
+          gameOver = True
   
-      #   printBoard(board)
-      #   turn = (turn + 1) % 2
+      printBoard(board)
+      drawBoard(board)
+      turn = (turn + 1) % 2
+
+      if gameOver:
+        pg.time.wait(3000)
